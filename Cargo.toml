@@ -1,0 +1,24 @@
+[package]
+name = "blackscreen"
+version = "1.0.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+
+[features]
+# Incrusta un manifiesto con uiAccess="true": la ventana sube a la capa de
+# accesibilidad, por encima del menu Inicio y del Administrador de tareas.
+# El exe resultante SOLO arranca firmado y desde Program Files (ver install.ps1).
+uiaccess = []
+
+# no_std exige panic = "abort" tambien en debug (no hay maquinaria de unwind).
+[profile.dev]
+panic = "abort"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
